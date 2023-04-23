@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5 ">
+        <div class="d-flex justify-content-center mb-3">
+            <h1>Convert</h1>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <textarea class="form-control" id="textarea1" style="height: 600px;"></textarea>
+            </div>
+            <div class="col-6">
+                <div class="mb-3">
+                    <textarea class="form-control" id="textarea2" style="height: 600px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <div>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="sqlToJavaString()">sqlToJavaString</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="sqlToJavaStringPreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaPrivateCamelize()">strToJavaPrivateCamelize</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaPrivateCamelizePreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaGetMethod()">strToJavaGetMethod</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaGetMethodPreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="removeVariableAngular()">removeVariableAngular</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="removeVariableAngularPreview()">preview</button>
+                <button type="button" class="btn btn-primary mt-2"  onclick="resetTextarea()">reset</button>
+            </div>
+           
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalJavaCloneObject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">CloneObject</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">ObjectName1</label>
+                    <input type="email" class="form-control" id="objectName1">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">ObjectName2</label>
+                    <input type="email" class="form-control" id="objectName2">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="cloneObject()">Clone</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script>
+        let textarea1 = document.getElementById("textarea1")
+        let textarea2 = document.getElementById("textarea2")
+        let objectName1 = document.getElementById("objectName1");
+        let objectName2 = document.getElementById("objectName2");
+        const modalJavaCloneObject = new bootstrap.Modal('#modalJavaCloneObject', {
+            keyboard: false
+        })
+
+        function camelCase(str) {
+            let split = str.split("_")
+            let result = ""
+            split.forEach((element, i, array) => {
+                if (i == 0) {
+                    result += element.toLowerCase()
+                } else {
+                    console.log(element.split(''))
+                    let text = element.split('').map((value, i) => {
+                        console.log(value)
+                        if (i == 0) {
+                            return value.toUpperCase()
+                        } else {
+                            return value.toLowerCase()
+                        }
+                    })
+                    console.log(text)
+                    result += element[0].toUpperCase() + element.slice(1,element.length).toLowerCase()
+                }
+            })
+            return result;
+        }
+
+        function sqlToJavaString() {
+            let text = ""
+            let listSplit = textarea1.value.split("\n")
+            
+            listSplit.forEach((element, i, array) => {
+                if (i === array.length - 1) {
+                    text += `"${element.trimStart()}"`
+                } else {
+                    text += `"${element.trimStart()} "+\n`
+                }
+            });
+            textarea2.value = text
+        }
+
+        function sqlToJavaStringPreview () {
+            let datapreView = `select 
+            ETD.DONATION_ID ,
+            VARCHAR_FORMAT(ETD.DONATION_DATETIME,'YYYYMMDD') AS DATE_REV, 
+            EMDU.DONATION_UNIT_TAX_ID AS OFF_NID, 
+            DUT.DONATION_UNIT_TITLE_NAME||''||EMDU.DONATION_UNIT_NAME AS OFF_NAME,
+            case when EMDU.HOUSE_NUMBER != '' and EMDU.HOUSE_NUMBER is not null
+                  then 'เลขที่ ' || COALESCE(EMDU.HOUSE_NUMBER,'') else ''          end as HOUSE_NUMBER,
+            case when EMDU.BUILDING_NAME != '' and EMDU.BUILDING_NAME is not null
+                  then ' อาคาร ' || COALESCE(EMDU.BUILDING_NAME,'') else ''        end as BUILDING_NAME,
+            case when EMDU.ROOM_NUMBER != '' and EMDU.ROOM_NUMBER is not null 
+                  then ' ห้อง '|| COALESCE(EMDU.ROOM_NUMBER,'') else ''             end as ROOM_NUMBER,
+            case when EMDU.FLOOR_NUMBER != '' and EMDU.FLOOR_NUMBER is not null 
+                  then ' ชั้น '|| COALESCE(EMDU.FLOOR_NUMBER,'') else ''             end as FLOOR_NUMBER,
+            case when EMDU.VILLAGE_NAME != '' and EMDU.VILLAGE_NAME is not null 
+                  then ' หมู่บ้าน '|| COALESCE(EMDU.VILLAGE_NAME,'') else ''          end as VILLAGE_NAME,
+            case when EMDU.MOO_NUMBER != '' and EMDU.MOO_NUMBER is not null
+                  then ' หมู่ที่ ' || COALESCE(EMDU.MOO_NUMBER,'') else ''             end as MOO_NUMBER,
+            case when EMDU.SOI_NAME != '' and EMDU.SOI_NAME is not null
+                  then ' ซ. ' || COALESCE(EMDU.SOI_NAME,'') else ''                end as SOI_NAME,
+            case when EMDU.STREET_NAME != '' and EMDU.STREET_NAME is not null
+                  then ' ถ.'  || COALESCE(EMDU.STREET_NAME,'') else ''             end as STREET_NAME,
+            case when EMDU.THAMBOL_NAME != '' and EMDU.THAMBOL_NAME is not NULL
+                  then ' '|| COALESCE(EMDU.THAMBOL_NAME,'') else ''                     end as THAMBOL_NAME,
+            case when EMDU.AMPHUR_NAME != '' and EMDU.AMPHUR_NAME is not null
+                  then ' '|| COALESCE(EMDU.AMPHUR_NAME,'') else ''                      end as AMPHUR_NAME,
+            case when EMDU.PROVINCE_NAME != '' and EMDU.PROVINCE_NAME is not null
+                  then ' ' || COALESCE(EMDU.PROVINCE_NAME,'') else ''                    end as PROVINCE_NAME,
+            case when EMDU.POST_CODE != '' and EMDU.POST_CODE is not null
+                  then ' ' || COALESCE(EMDU.POST_CODE,'') else ''                        end as POST_CODE,  
+            ETD.DONATOR_TAX_ID AS DONATE_NID,
+            ETD.DONATOR_TITLE AS TNAME, 
+            ETD.DONATOR_FIRST_NAME AS FNAME, 
+            ETD.DONATOR_LAST_NAME AS LNAME,
+            ETD.CASH_AMOUNT AS AMT_CASH,
+            nvl((case when ETD.DONATION_CHANNEL_CODE is null or ETD.DONATION_CHANNEL_CODE = '' 
+                                    then ''
+                            when ETD.DONATION_CHANNEL_CODE = 'DONA'
+                                    then  'C'
+                            when ETD.DONATION_CHANNEL_CODE = 'BANK'
+                                    then 'B' end  ) ,'') AS DONATE_TYPE , 
+             REPLACE(DDS.GET_TAX_BENEFIT_NAME(ETD.DONATION_ID),'เท่า','')  AS  BENEFIT  
+           from DDS.ED_T_DONATION ETD 
+           left join DDS.ED_M_DONATION_UNIT EMDU
+           on ETD.DONATION_UNIT_TAX_ID = EMDU.DONATION_UNIT_TAX_ID
+           left join DDS.ED_M_DONATION_UNIT_TITLE DUT 
+           on EMDU.DONATION_UNIT_TITLE_CODE = DUT.DONATION_UNIT_TITLE_CODE
+           left join DDS.ED_M_TAX_BENEFIT TB
+           ON ETD.TAX_BENEFIT_ID = TB.TAX_BENEFIT_ID
+           where  
+           ETD.DONATION_STATUS_CODE <> 'C'  
+           and (ETD.DONATOR_TYPE  = 'P' AND ETD.DONATION_TYPE  = 'N')
+           and YEAR(ETD.DONATION_DATETIME) = '2021'
+           and ETD.EXPORT_STATUS is null  
+           
+           ORDER BY  ETD.DONATION_DATETIME, ETD.DONATION_UNIT_TAX_ID, ETD.DONATOR_TAX_ID ASC fetch first 100 rows only  WITH UR`
+            textarea1.value = datapreView
+            sqlToJavaString()
+        }
+
+        function strToJavaPrivateCamelize() {
+            let listSplit = textarea1.value.split("\n")
+            let text = ""
+            console.log(listSplit)
+            listSplit.forEach((element, i, array) => {
+                if (i === array.length - 1) {
+                    text += `@Column(name ="${element.trim()}")\n`
+                    text += `private String ${camelCase(element.trimStart())};`
+                } else {
+                    text += `@Column(name ="${element.trim()}")\n`
+                    text += `private String ${camelCase(element.trimStart())}; \n\n`
+                }
+            });
+            textarea2.value = text
+        }
+
+        function strToJavaPrivateCamelizePreview () {
+            let dataPreView = `DONATION_ID
+DATE_REV
+OFF_NID
+OFF_NAME
+HOUSE_NUMBER
+BUILDING_NAME
+ROOM_NUMBER
+FLOOR_NUMBER
+VILLAGE_NAME
+MOO_NUMBER
+SOI_NAME
+STREET_NAME
+THAMBOL_NAME
+AMPHUR_NAME
+PROVINCE_NAME
+POST_CODE
+DONATE_NID
+TNAME
+FNAME
+LNAME
+AMT_CASH
+DONATE_TYPE
+BENEFIT`
+            textarea1.value = dataPreView
+            strToJavaPrivateCamelize()
+        }
+
+        function strToJavaGetMethod () {
+            let listSplit = textarea1.value.split("\n")
+            let text = ""
+            listSplit.forEach((element, i, array) => {
+                if (i === array.length - 1) {
+                    text += `CSV += res.${element}() + "\\n";`
+                } else {
+                    text += `CSV += res.${element}() + ",";\n`
+                }
+            });
+            textarea2.value = text
+        }
+
+        function resetTextarea() {
+            console.log("test")
+            console.log(textarea1.value)
+            textarea1.value = ""
+            textarea2.value = ""
+            console.log(textarea1.value)
+        }
+
+        function strToJavaCloneObject () {
+            modalJavaCloneObject.show()
+        }
+
+        function cloneObject() {
+           
+            let listSplit = textarea1.value.split("\n")
+            let text = ""
+            let arrayCheckType = ["String", "BigInteger", "Integer", "int", "Date", "Boolean"] 
+            let createObject = [
+                {typeClass: "Set", create: "HashSet"},
+                {typeClass: "List", create: "ArrayList"},
+            ]
+            
+            listSplit.forEach((element, i, array) => {
+                element = element.trim()
+                if (element.indexOf("get") > -1) {
+                    if (element.split(" ").length < 3) {return;}
+                  
+                    let typeClass = element.split(" ")[1]
+                    let isCheckType = false
+                  
+                    arrayCheckType.forEach((val) => {
+                        if (typeClass == val) {
+                            isCheckType = true
+                        }
+                    })
+
+                    let methodGet = element.split(" ")[2];
+                    let methodSet = methodGet.replace("get", "set").substring(0, methodGet.replace("get", "set").length -1);
+             
+                    
+                    if (isCheckType == true) {
+                        text += `${objectName1.value}.${methodSet}${objectName2.value}.${methodGet});\n`
+                    } else {
+                        let variable = methodGet
+                        variable = variable.replace("get","").replace("()", "")
+                        variable = `${variable.substring(0, 1).toLowerCase()}${variable.substring(1, methodGet.replace("get", "set").length)}`;
+
+                        let createObjectClass = typeClass
+                        createObject.forEach((val) => {
+                               if (typeClass.indexOf(val.typeClass) > -1) {
+                                createObjectClass = typeClass.replace(val.typeClass, val.create)
+                               }
+                        })
+
+                        text += `${typeClass} ${variable} = new ${createObjectClass}();\n`
+                        text += `${objectName1.value}.${methodSet}${variable});\n`
+                    }
+
+
+                }
+            });
+            textarea2.value = text
+            modalJavaCloneObject.hide()
+        }
+
+        function strToJavaCloneObjectPreview() {
+            objectName1.value = "welfareAppeal"
+            objectName2.value = "welfareOpt"
+            let dataPreView = `private BigInteger appealId;
+	private WelfareMStep welfareMStepByStepCode;
+	private WelfareMStep welfareMStepByStepCodeIncCheck;
+	private String nid;
+	private String taxYear;
+	private Set<WelfareRegistrant> welfareRegistrants = new HashSet<WelfareRegistrant>(0);
+	private List<WelfareAppealDetail> welfareAppealDetails = new ArrayList<WelfareAppealDetail>(0);
+
+	public WelfareAppeal() {
+	}
+
+	public WelfareAppeal(BigInteger appealId) {
+		this.appealId = appealId;
+	}
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Basic(optional = false)
+	@Column(name = "APPEAL_ID", unique = true, nullable = false)
+	public BigInteger getAppealId() {
+		return this.appealId;
+	}
+
+	public void setAppealId(BigInteger appealId) {
+		this.appealId = appealId;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STEP_CODE", nullable = false)
+	public WelfareMStep getWelfareMStepByStepCode() {
+		return this.welfareMStepByStepCode;
+	}
+
+	public void setWelfareMStepByStepCode(WelfareMStep welfareMStepByStepCode) {
+		this.welfareMStepByStepCode = welfareMStepByStepCode;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "STEP_CODE_INC_CHECK")
+	public WelfareMStep getWelfareMStepByStepCodeIncCheck() {
+		return this.welfareMStepByStepCodeIncCheck;
+	}
+
+	public void setWelfareMStepByStepCodeIncCheck(WelfareMStep welfareMStepByStepCodeIncCheck) {
+		this.welfareMStepByStepCodeIncCheck = welfareMStepByStepCodeIncCheck;
+	}
+
+	@Column(name = "NID", nullable = false, length = 13)
+	public String getNid() {
+		return this.nid;
+	}
+
+	public void setNid(String nid) {
+		this.nid = nid;
+	}
+
+	@Column(name = "TAX_YEAR", nullable = false, length = 4)
+	public String getTaxYear() {
+		return this.taxYear;
+	}
+
+	public void setTaxYear(String taxYear) {
+		this.taxYear = taxYear;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "welfareAppeal")
+	public Set<WelfareRegistrant> getWelfareRegistrants() {
+		return this.welfareRegistrants;
+	}
+
+	public void setWelfareRegistrants(Set<WelfareRegistrant> welfareRegistrants) {
+		this.welfareRegistrants = welfareRegistrants;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "welfareAppeal")
+	public List<WelfareAppealDetail> getWelfareAppealDetails() {
+		return this.welfareAppealDetails;
+	}
+
+	public void setWelfareAppealDetails(List<WelfareAppealDetail> welfareAppealDetails) {
+		this.welfareAppealDetails = welfareAppealDetails;
+	}`
+        textarea1.value = dataPreView
+        strToJavaCloneObject()
+    }
+
+    function removeVariableAngular() {
+        let textarea1Value =  textarea1.value
+        let listSplit = textarea1Value.split("\n")
+        let text = ""
+        let listRemove = [
+            {name:"*ngIf"},
+            {name:"*ngFor"},
+            {name:"formControlName"},
+            {name:"formArrayName"},
+        ]
+
+        listSplit.map((element, i, array) => {
+            let startIndex = 0
+            while(element.indexOf(`\{\{`, startIndex) != -1) {
+                element = `${element.substring(0,(element.indexOf(`\{\{`)))}${element.substring(element.indexOf(`\}\}`)+2,element.length)}`
+                startIndex = element.indexOf(`\}\}`,startIndex)+2
+            }
+
+            listRemove.forEach(value => {
+                startIndex = 0
+                element = cutInputOutput(element, startIndex, "\"", value)
+                startIndex = 0
+                element = cutInputOutput(element, startIndex, "'", value)
+            })
+
+            console.log(element)
+            element = element.replace(/\([^\]]*\)=/g, `formControlName=`).replace(/\[[^\]]*\]=/g,`formControlName=`)
+            console.log(element)
+
+            listRemove.forEach(value => {
+                startIndex = 0
+                element = cutInputOutput(element, startIndex, "\"", value)
+                startIndex = 0
+                element = cutInputOutput(element, startIndex, "'", value)
+            })
+            console.log(element)
+            text += element + "\n"
+            return element
+        });
+        textarea2.value = text
+    }
+
+    function cutInputOutput(element, startIndex, stringCut, value) {
+        while(element.indexOf(value.name, startIndex) != -1) {
+            let start = element.indexOf(value.name,startIndex)
+            if (element[element.indexOf(`=`,start)+1] == stringCut) {
+                element = `${element.substring(0,(element.indexOf(value.name,start)))}${element.substring(element.indexOf(stringCut,element.indexOf(stringCut,start)+1)+1,element.length)}`
+                startIndex = start + 1
+            } else {
+                startIndex = start + 1
+            }
+        }
+        return element;
+    }
+
+    function removeVariableAngularPreview() {
+        let dataPreView = `<app-appeal-organization-type-ahead  \[isRequired\]="true" \*ngIf="appealNo.hasError('required') && appealNo.touched" 
+\(selectedOrgEvent\)='setTransferValue($event)' input-phd="โปรดระบุ" formControlName="appealNo">
+</app-appeal-organization-type-ahead>
+`       
+        textarea1.value = dataPreView;
+        removeVariableAngular()
+    }
+        
+    </script>
+</body>
+</html>

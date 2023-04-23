@@ -1,0 +1,3 @@
+<app-appeal-organization-type-ahead  [isRequired]="true" *ngIf="appealNo.hasError('required') && appealNo.touched" 
+(selectedOrgEvent)='setTransferValue($event)' input-phd="โปรดระบุ" formControlName="appealNo">
+</app-appeal-organization-type-ahead>
