@@ -33,8 +33,6 @@
                 <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaGetMethodPreview()">preview</button>
                 <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
                 <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
                 <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="removeVariableAngular()">removeVariableAngular</button>
                 <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="removeVariableAngularPreview()">preview</button>
                 <button type="button" class="btn btn-primary mt-2"  onclick="resetTextarea()">reset</button>
@@ -223,9 +221,9 @@ BENEFIT`
             let text = ""
             listSplit.forEach((element, i, array) => {
                 if (i === array.length - 1) {
-                    text += `CSV += res.${element}() + "\\n";`
+                    text += `sql.append(" ${element.trim()} ");\n`
                 } else {
-                    text += `CSV += res.${element}() + ",";\n`
+                    text += `sql.append(" ${element.trim()} ");\n`
                 }
             });
             textarea2.value = text
@@ -247,7 +245,7 @@ BENEFIT`
            
             let listSplit = textarea1.value.split("\n")
             let text = ""
-            let arrayCheckType = ["String", "BigInteger", "Integer", "int", "Date", "Boolean"] 
+            let arrayCheckType = ["String", "BigInteger", "Integer", "int", "Date", "Boolean","Double"] 
             let createObject = [
                 {typeClass: "Set", create: "HashSet"},
                 {typeClass: "List", create: "ArrayList"},
