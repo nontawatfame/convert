@@ -15,6 +15,30 @@ export class NumberOnlyDirective implements OnInit {
   }
 
   @HostListener('keydown', ['$event']) onKeyDown(event) {
+    if (this.checkNumber(event)) {
+      return;
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('paste', ['$event']) onPaste(event) {
+    if (this.checkNumber(event)) {
+      return;
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('drop', ['$event']) onDrop(event: DragEvent) {
+    if (this.checkNumber(event)) {
+      return;
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  checkNumber(event: any) {
     const e = <KeyboardEvent>event;
     if ([46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
       // Allow: Ctrl+A
@@ -38,22 +62,7 @@ export class NumberOnlyDirective implements OnInit {
     const ch = String.fromCharCode(e.keyCode);
 
     const regEx = new RegExp(this.regexStr);
-    if (regEx.test(ch) && e.key === ch) {
-      return;
-    } else {
-      e.preventDefault();
-    }
+    return regEx.test(ch) && e.key === ch
   }
 
-  @HostListener('paste', ['$event']) onPaste(event) {
-    if (!isDevMode()) {
-      event.preventDefault();
-    }
-  }
-
-  @HostListener('drop', ['$event']) onDrop(event: DragEvent) {
-    if (!isDevMode()) {
-      event.preventDefault();
-    }
-  }
 }
