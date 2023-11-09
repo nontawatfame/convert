@@ -14,31 +14,7 @@ export class NumberOnlyDirective implements OnInit {
     this.renderer2.setAttribute(this.el.nativeElement, 'autocomplete', 'off');
   }
 
-  @HostListener('keydown', ['$event']) onKeyDown(event) {
-    if (this.checkNumber(event)) {
-      return;
-    } else {
-      event.preventDefault();
-    }
-  }
-
-  @HostListener('paste', ['$event']) onPaste(event) {
-    if (this.checkNumber(event)) {
-      return;
-    } else {
-      event.preventDefault();
-    }
-  }
-
-  @HostListener('drop', ['$event']) onDrop(event: DragEvent) {
-    if (this.checkNumber(event)) {
-      return;
-    } else {
-      event.preventDefault();
-    }
-  }
-
-  checkNumber(event: any) {
+  @HostListener('keydown', ['$event']) onKeyDown(event: any) {
     const e = <KeyboardEvent>event;
     if ([46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
       // Allow: Ctrl+A
@@ -60,9 +36,31 @@ export class NumberOnlyDirective implements OnInit {
       return;
     }
     const ch = String.fromCharCode(e.keyCode);
-
     const regEx = new RegExp(this.regexStr);
-    return regEx.test(ch) && e.key === ch
+    if (regEx.test(ch) && e.key === ch) {
+      return
+    } else {
+      event.preventDefault();
+    }
   }
 
+  @HostListener('paste', ['$event']) onPaste(event : any) {
+    const pastedText = event.clipboardData?.getData('text');
+    const regEx = new RegExp(this.regexStr);
+    if (regEx.test(pastedText)) {
+      return
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  @HostListener('drop', ['$event']) onDrop(event: DragEvent) {
+    const textData = event.dataTransfer?.getData('text') as string;
+    const regEx = new RegExp(this.regexStr);
+    if (regEx.test(textData)) {
+      return
+    } else {
+      event.preventDefault();
+    }
+  }
 }
