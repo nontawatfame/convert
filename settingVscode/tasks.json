@@ -7,8 +7,8 @@
             "type": "process",
             "problemMatcher": [],
             "runOptions": {"runOn": "folderOpen"}
-          },
-          {
+        },
+        {
             "label": "Start App",
             "type": "shell",
             "command": "npm start",
