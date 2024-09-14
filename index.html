@@ -23,20 +23,34 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-2">
-            <div>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="sqlToJavaString()">sqlToJavaString</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="sqlToJavaStringPreview()">preview</button>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaPrivateCamelize()">strToJavaPrivateCamelize</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaPrivateCamelizePreview()">preview</button>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaGetMethod()">strToJavaGetMethod</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaGetMethodPreview()">preview</button>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
-                <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="removeVariableAngular()">removeVariableAngular</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -5px;"  onclick="removeVariableAngularPreview()">preview</button>
+        <div class="d-flex mt-2 flex-wrap">
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="sqlToJavaString()">sqlToJavaString</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="sqlToJavaStringPreview()">preview</button>
+                </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaPrivateCamelize()">strToJavaPrivateCamelize</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="strToJavaPrivateCamelizePreview()">preview</button>
+                </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaGetMethod()">strToJavaGetMethod</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="strToJavaGetMethodPreview()">preview</button>
+                </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="strToJavaCloneObject()">strToJavaCloneObject</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="strToJavaCloneObjectPreview()">preview</button>
+                </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="removeVariableAngular()">removeVariableAngular</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="removeVariableAngularPreview()">preview</button>
+                </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="jsonToInterfaceTypescript()">Json to interface Typescript</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="jsonToInterfaceTypescriptPreview()">preview</button>
+                </div>
+              
+               
                 <button type="button" class="btn btn-primary mt-2"  onclick="resetTextarea()">reset</button>
-            </div>
            
         </div>
     </div>
@@ -445,6 +459,42 @@ BENEFIT`
 `       
         textarea1.value = dataPreView;
         removeVariableAngular()
+    }
+
+    
+
+    function generateInterface(json, interfaceName = 'Root') {
+        let interfaceChild = ""
+        let interfaceString = `interface ${interfaceName} {\n`;
+        for (let key in json) {
+            let type = typeof json[key];
+            if (Array.isArray(json[key])) {
+            const arrayElementType = typeof json[key][0];
+            if (arrayElementType === 'object') {
+                const childInterfaceName = key.charAt(0).toUpperCase() + key.slice(1); // ทำให้ชื่อ array object มี interface ที่เหมาะสม
+                type = `${childInterfaceName}[]`;
+                interfaceChild += generateInterface(json[key][0], childInterfaceName); // recursive สำหรับ object ใน array
+            } else {
+                type = `${arrayElementType}[]`;
+            }
+            } else if (type === 'object' && json[key] !== null) {
+            const childInterfaceName = key.charAt(0).toUpperCase() + key.slice(1);
+            type = childInterfaceName;
+            interfaceChild += generateInterface(json[key], childInterfaceName)
+            }
+            interfaceString += `  ${key}: ${type};\n`;
+        }
+
+        interfaceString += '}\n\n';
+        interfaceString += interfaceChild;
+        return interfaceString;
+    }
+
+    function jsonToInterfaceTypescript() {
+        let textarea1Value =  JSON.parse(textarea1.value)
+        let interfaceName = "Root"
+        let interfaceString = generateInterface(textarea1Value,interfaceName)
+        textarea2.value = interfaceString
     }
         
     </script>
