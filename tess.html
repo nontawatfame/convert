@@ -1,3 +1,80 @@
-<app-appeal-organization-type-ahead  [isRequired]="true" *ngIf="appealNo.hasError('required') && appealNo.touched" 
-(selectedOrgEvent)='setTransferValue($event)' input-phd="โปรดระบุ" formControlName="appealNo">
-</app-appeal-organization-type-ahead>
+<script>
+    let sql = `INSERT INTO AMASTER.RDB_ROLE_PRIV											
+(RDB_ROLE_ID, RDB_PRIV_ID, PRIV_LEVEL, STATUS, CREATE_DATE, CREATE_BY, MODIFIED_DATE, MODIFIED_BY)											
+VALUES `
+
+
+
+let valueS01s = [
+    {privId: 155, privLevel: 2},
+    {privId: 156, privLevel: 2},
+    {privId: 157, privLevel: 2},
+    {privId: 158, privLevel: 2},
+    {privId: 159, privLevel: 2},
+    {privId: 160, privLevel: 2},
+    {privId: 161, privLevel: 2},
+    {privId: 162, privLevel: 2},
+    {privId: 163, privLevel: 2},
+    {privId: 164, privLevel: 2},
+    {privId: 165, privLevel: 2},
+    {privId: 166, privLevel: 2},
+    {privId: 167, privLevel: 2},
+    {privId: 168, privLevel: 2},
+    {privId: 169, privLevel: 2},
+    {privId: 170, privLevel: 2},
+    {privId: 171, privLevel: 2},
+    {privId: 172, privLevel: 2}
+] 
+
+let valueO01s = [
+    {privId: 155, privLevel: 2},
+    {privId: 156, privLevel: 2},
+    {privId: 157, privLevel: 2},
+    {privId: 158, privLevel: 2},
+    {privId: 159, privLevel: 2},
+    {privId: 160, privLevel: 2},
+    {privId: 161, privLevel: 2},
+    {privId: 162, privLevel: 2},
+    {privId: 163, privLevel: 2},
+    {privId: 164, privLevel: 2},
+    {privId: 165, privLevel: 2},
+    {privId: 166, privLevel: 1},
+    {privId: 167, privLevel: 1},
+    {privId: 168, privLevel: 1},
+    {privId: 169, privLevel: 1},
+    {privId: 170, privLevel: 1},
+    {privId: 171, privLevel: 1},
+    {privId: 172, privLevel: 1}
+] 
+
+let s01List = [1,7,8,14,20,26,32,38,44,50,56]
+let o01List = [2,9,15,21,27,33,39,45,51,57]
+
+//หัวหน้า
+for (let s of s01List) {
+    for (let val of valueS01s) {
+    sql += `(${s}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+    }
+}
+
+//เจ้าหน้าที่
+// for (let o of o01List) {
+//     for (let val of valueO01s) {
+//     sql += `(${o}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+//     }
+// }
+
+// for (let val of valueS01s) {
+//     sql += `(7, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+// }
+// for (let val of valueO01s) {
+//     sql += `(9, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+// }
+
+// let text = ''
+// for (let i = 155; i <= 172; i++) {
+//     text += `{privId: ${i}, privLevel: 2},\n`
+// }
+console.log(sql)
+
+</script>
