@@ -1,3 +1,4 @@
+
 <script>
     let sql = `INSERT INTO AMASTER.RDB_ROLE_PRIV											
 (RDB_ROLE_ID, RDB_PRIV_ID, PRIV_LEVEL, STATUS, CREATE_DATE, CREATE_BY, MODIFIED_DATE, MODIFIED_BY)											
@@ -23,7 +24,9 @@ let valueS01s = [
     {privId: 169, privLevel: 2},
     {privId: 170, privLevel: 2},
     {privId: 171, privLevel: 2},
-    {privId: 172, privLevel: 2}
+    {privId: 172, privLevel: 2},
+    {privId: 177, privLevel: 2},
+    {privId: 178, privLevel: 2}
 ] 
 
 let valueO01s = [
@@ -44,7 +47,9 @@ let valueO01s = [
     {privId: 169, privLevel: 1},
     {privId: 170, privLevel: 1},
     {privId: 171, privLevel: 1},
-    {privId: 172, privLevel: 1}
+    {privId: 172, privLevel: 1},
+    {privId: 177, privLevel: 2},
+    {privId: 178, privLevel: 2}
 ] 
 
 let s01List = [1,7,8,14,20,26,32,38,44,50,56]
@@ -58,11 +63,11 @@ for (let s of s01List) {
 }
 
 //เจ้าหน้าที่
-// for (let o of o01List) {
-//     for (let val of valueO01s) {
-//     sql += `(${o}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
-//     }
-// }
+for (let o of o01List) {
+    for (let val of valueO01s) {
+    sql += `(${o}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+    }
+}
 
 // for (let val of valueS01s) {
 //     sql += `(7, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
