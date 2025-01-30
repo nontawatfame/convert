@@ -1,0 +1,61 @@
+
+<script>
+    let sqlRdbPriv = `INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_FLOW_ID,ACTION_NAME,REMARK,STATUS,CREATE_DATE,CREATE_BY,MODIFIED_DATE,MODIFIED_BY) VALUES
+        (201,'Q',3,155,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+        (202,'Q',3,155,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+        (203,'Q',3,155,'BTN_CANCEL_DATA','ยกเลิกรายการข้อมูล','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+        (204,'Q',3,156,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+        (205,'Q',3,156,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL)
+    `
+    let sql = `INSERT INTO AMASTER.RDB_ROLE_PRIV											
+(RDB_ROLE_ID, RDB_PRIV_ID, PRIV_LEVEL, STATUS, CREATE_DATE, CREATE_BY, MODIFIED_DATE, MODIFIED_BY)											
+VALUES `
+
+
+let valueS01s = [
+    {privId: 201, privLevel: 2},
+    {privId: 202, privLevel: 2},
+    {privId: 203, privLevel: 2},
+    {privId: 204, privLevel: 2},
+    {privId: 205, privLevel: 2}
+] 
+
+let valueO01s = [
+    {privId: 201, privLevel: 2},
+    {privId: 202, privLevel: 2},
+    {privId: 203, privLevel: 2},
+    {privId: 204, privLevel: 2},
+    {privId: 205, privLevel: 2}
+] 
+
+let s01List = [1,7,8,14,20,26,32,38,44,50,56]
+let o01List = [2,9,15,21,27,33,39,45,51,57]
+
+//หัวหน้า
+for (let s of s01List) {
+    for (let val of valueS01s) {
+    sql += `(${s}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+    }
+}
+
+//เจ้าหน้าที่
+for (let o of o01List) {
+    for (let val of valueO01s) {
+    sql += `(${o}, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+    }
+}
+
+// for (let val of valueS01s) {
+//     sql += `(7, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+// }
+// for (let val of valueO01s) {
+//     sql += `(9, ${val.privId}, ${val.privLevel}, 'A', CURRENT_TIMESTAMP, '1', NULL, NULL),\n`
+// }
+
+// let text = ''
+// for (let i = 155; i <= 172; i++) {
+//     text += `{privId: ${i}, privLevel: 2},\n`
+// }
+console.log(sql)
+
+</script>
