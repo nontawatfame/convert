@@ -6,51 +6,68 @@ VALUES `
 
 
 
+// let valueS01s = [
+//     {privId: 155, privLevel: 2},
+//     {privId: 156, privLevel: 2},
+//     {privId: 157, privLevel: 2},
+//     {privId: 158, privLevel: 2},
+//     {privId: 159, privLevel: 2},
+//     {privId: 160, privLevel: 2},
+//     {privId: 161, privLevel: 2},
+//     {privId: 162, privLevel: 2},
+//     {privId: 163, privLevel: 2},
+//     {privId: 164, privLevel: 2},
+//     {privId: 165, privLevel: 2},
+//     {privId: 166, privLevel: 2},
+//     {privId: 167, privLevel: 2},
+//     {privId: 168, privLevel: 2},
+//     {privId: 169, privLevel: 2},
+//     {privId: 170, privLevel: 2},
+//     {privId: 171, privLevel: 2},
+//     {privId: 172, privLevel: 2},
+//     {privId: 177, privLevel: 2},
+//     {privId: 178, privLevel: 2}
+// ] 
+
+// let valueO01s = [
+//     {privId: 155, privLevel: 2},
+//     {privId: 156, privLevel: 2},
+//     {privId: 157, privLevel: 2},
+//     {privId: 158, privLevel: 2},
+//     {privId: 159, privLevel: 2},
+//     {privId: 160, privLevel: 2},
+//     {privId: 161, privLevel: 2},
+//     {privId: 162, privLevel: 2},
+//     {privId: 163, privLevel: 2},
+//     {privId: 164, privLevel: 2},
+//     {privId: 165, privLevel: 2},
+//     {privId: 166, privLevel: 1},
+//     {privId: 167, privLevel: 1},
+//     {privId: 168, privLevel: 1},
+//     {privId: 169, privLevel: 1},
+//     {privId: 170, privLevel: 1},
+//     {privId: 171, privLevel: 1},
+//     {privId: 172, privLevel: 1},
+//     {privId: 177, privLevel: 2},
+//     {privId: 178, privLevel: 2}
+// ] 
+
 let valueS01s = [
-    {privId: 155, privLevel: 2},
-    {privId: 156, privLevel: 2},
-    {privId: 157, privLevel: 2},
-    {privId: 158, privLevel: 2},
-    {privId: 159, privLevel: 2},
-    {privId: 160, privLevel: 2},
-    {privId: 161, privLevel: 2},
-    {privId: 162, privLevel: 2},
-    {privId: 163, privLevel: 2},
-    {privId: 164, privLevel: 2},
-    {privId: 165, privLevel: 2},
-    {privId: 166, privLevel: 2},
-    {privId: 167, privLevel: 2},
-    {privId: 168, privLevel: 2},
-    {privId: 169, privLevel: 2},
-    {privId: 170, privLevel: 2},
-    {privId: 171, privLevel: 2},
-    {privId: 172, privLevel: 2},
-    {privId: 177, privLevel: 2},
-    {privId: 178, privLevel: 2}
+    {privId: 206, privLevel: 2},
+    {privId: 207, privLevel: 2},
+    {privId: 208, privLevel: 2},
+    {privId: 209, privLevel: 2},
+    {privId: 210, privLevel: 2}
 ] 
 
 let valueO01s = [
-    {privId: 155, privLevel: 2},
-    {privId: 156, privLevel: 2},
-    {privId: 157, privLevel: 2},
-    {privId: 158, privLevel: 2},
-    {privId: 159, privLevel: 2},
-    {privId: 160, privLevel: 2},
-    {privId: 161, privLevel: 2},
-    {privId: 162, privLevel: 2},
-    {privId: 163, privLevel: 2},
-    {privId: 164, privLevel: 2},
-    {privId: 165, privLevel: 2},
-    {privId: 166, privLevel: 1},
-    {privId: 167, privLevel: 1},
-    {privId: 168, privLevel: 1},
-    {privId: 169, privLevel: 1},
-    {privId: 170, privLevel: 1},
-    {privId: 171, privLevel: 1},
-    {privId: 172, privLevel: 1},
-    {privId: 177, privLevel: 2},
-    {privId: 178, privLevel: 2}
+    {privId: 206, privLevel: 2},
+    {privId: 207, privLevel: 2},
+    {privId: 208, privLevel: 2},
+    {privId: 209, privLevel: 2},
+    {privId: 210, privLevel: 2}
 ] 
+
 
 let s01List = [1,7,8,14,20,26,32,38,44,50,56]
 let o01List = [2,9,15,21,27,33,39,45,51,57]
@@ -83,3 +100,11 @@ for (let o of o01List) {
 console.log(sql)
 
 </script>
+
+
+INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_FLOW_ID,ACTION_NAME,REMARK,STATUS,CREATE_DATE,CREATE_BY,MODIFIED_DATE,MODIFIED_BY) VALUES
+	 (206,'M',2,164,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (207,'M',2,164,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (208,'M',3,167,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (209,'M',3,167,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (210,'M',3,167,'BTN_NEXT','ปุ่มเสนอหัวหน้าอนุมัติ','A',CURRENT_TIMESTAMP,'1',NULL,NULL);
