@@ -48,6 +48,10 @@
                     <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="jsonToInterfaceTypescript()">Json to interface Typescript</button>
                     <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="jsonToInterfaceTypescriptPreview()">preview</button>
                 </div>
+                <div class="d-flex item">
+                    <button type="button" class="btn btn-primary mt-2" style="border-radius: .25rem 0px 0px .25rem !important;" onclick="jsonToInterfaceJava()">Json to interface Java</button>
+                    <button type="button" class="btn btn-outline-secondary me-2 mt-2" style="border-radius: .0px 0.25rem 0.25rem 0px !important;margin-left: -1px;"  onclick="jsonToInterfaceJavaPreview()">preview</button>
+                </div>
               
                
                 <button type="button" class="btn btn-primary mt-2"  onclick="resetTextarea()">reset</button>
@@ -496,6 +500,76 @@ BENEFIT`
         let interfaceString = generateInterface(textarea1Value,interfaceName)
         textarea2.value = interfaceString
     }
+
+    function jsonToJavaClass(json, className, packageName = "com.example") {
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function getType(value) {
+            if (Array.isArray(value)) {
+                if (value.length > 0 && typeof value[0] === "object") {
+                    return `List<${capitalize(value[0].constructor.name)}>"`;
+                }
+                return "List<String>";
+            }
+            if (typeof value === "number") return Number.isInteger(value) ? "Integer" : "Double";
+            if (typeof value === "boolean") return "boolean";
+            if (typeof value === "string") return "String";
+            return "Object";
+        }
+
+    function generateClass(name, obj, indent = "") {
+        let classStr = `${indent}@Data\n${indent}@Builder\n${indent}@NoArgsConstructor\n${indent}@AllArgsConstructor\n${indent}@JsonIgnoreProperties(ignoreUnknown = true)\n${indent}public static class ${name} {\n`;
+        
+        for (const key in obj) {
+            if (Array.isArray(obj[key]) && typeof obj[key][0] === "object") {
+                let subClassName = capitalize(key.slice(0, -1));
+                subClasses.push(generateClass(subClassName, obj[key][0], indent + "    "));
+                classStr += `${indent}    private List<${subClassName}> ${key};\n`;
+            } else if (typeof obj[key] === "object") {
+                let subClassName = capitalize(key);
+                subClasses.push(generateClass(subClassName, obj[key], indent + "    "));
+                classStr += `${indent}    private ${subClassName} ${key};\n`;
+            } else {
+                classStr += `${indent}    private ${getType(obj[key])} ${key};\n`;
+            }
+        }
+        
+        classStr += `${indent}}\n`;
+        return classStr;
+    }
+
+    let subClasses = [];
+    let mainClass = `package ${packageName};\n\nimport com.fasterxml.jackson.annotation.JsonIgnoreProperties;\nimport com.fasterxml.jackson.annotation.JsonInclude;\nimport lombok.AllArgsConstructor;\nimport lombok.Builder;\nimport lombok.Data;\nimport lombok.NoArgsConstructor;\nimport java.util.List;\n\n@Data\n@Builder\n@NoArgsConstructor\n@AllArgsConstructor\n@JsonIgnoreProperties(ignoreUnknown = true)\npublic class ${className} {\n`;
+    
+    for (const key in json) {
+        if (Array.isArray(json[key]) && typeof json[key][0] === "object") {
+            let subClassName = capitalize(key.slice(0, -1));
+            subClasses.push(generateClass(subClassName, json[key][0], "    "));
+            mainClass += `    private List<${subClassName}> ${key};\n`;
+        } else if (typeof json[key] === "object") {
+            let subClassName = capitalize(key);
+            subClasses.push(generateClass(subClassName, json[key], "    "));
+            mainClass += `    private ${subClassName} ${key};\n`;
+        } else {
+            mainClass += `    private ${getType(json[key])} ${key};\n`;
+        }
+    }
+    
+    mainClass += subClasses.join("\n");
+    mainClass += `}\n`;
+    
+    return mainClass;
+}
+
+    function jsonToInterfaceJava() {
+        let textarea1Value =  JSON.parse(textarea1.value)
+        let interfaceName = "Root"
+        let interfaceString = jsonToJavaClass(textarea1Value, "Root", "com.model")
+        textarea2.value = interfaceString
+    }
+
         
     </script>
 </body>

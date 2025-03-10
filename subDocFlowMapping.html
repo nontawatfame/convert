@@ -1,0 +1,139 @@
+
+<script>
+    let sql = `INSERT INTO AMASTER.RDB_PROCURE_SUB_DOC_FLOW_MAPPING
+(SUB_DOC_FLOW_MAPPING_ID, REAL_METHOD_ID, TYPE_ID, SUB_GROUP_CODE)
+VALUES `
+
+let values = [
+	{
+		"REAL_METHOD_ID" : "181",
+		"TYPE_ID" : "01"
+	},
+	{
+		"REAL_METHOD_ID" : "181",
+		"TYPE_ID" : "02"
+	},
+	{
+		"REAL_METHOD_ID" : "181",
+		"TYPE_ID" : "03"
+	},
+	{
+		"REAL_METHOD_ID" : "181",
+		"TYPE_ID" : "04"
+	},
+	{
+		"REAL_METHOD_ID" : "182",
+		"TYPE_ID" : "01"
+	},
+	{
+		"REAL_METHOD_ID" : "182",
+		"TYPE_ID" : "02"
+	},
+	{
+		"REAL_METHOD_ID" : "182",
+		"TYPE_ID" : "03"
+	},
+	{
+		"REAL_METHOD_ID" : "182",
+		"TYPE_ID" : "04"
+	},
+	{
+		"REAL_METHOD_ID" : "191",
+		"TYPE_ID" : "05"
+	},
+	{
+		"REAL_METHOD_ID" : "192",
+		"TYPE_ID" : "05"
+	},
+	{
+		"REAL_METHOD_ID" : "193",
+		"TYPE_ID" : "05"
+	},
+	{
+		"REAL_METHOD_ID" : "201",
+		"TYPE_ID" : "06"
+	},
+	{
+		"REAL_METHOD_ID" : "201",
+		"TYPE_ID" : "07"
+	},
+	{
+		"REAL_METHOD_ID" : "201",
+		"TYPE_ID" : "08"
+	},
+	{
+		"REAL_METHOD_ID" : "202",
+		"TYPE_ID" : "06"
+	},
+	{
+		"REAL_METHOD_ID" : "202",
+		"TYPE_ID" : "07"
+	},
+	{
+		"REAL_METHOD_ID" : "202",
+		"TYPE_ID" : "08"
+	},
+	{
+		"REAL_METHOD_ID" : "203",
+		"TYPE_ID" : "06"
+	},
+	{
+		"REAL_METHOD_ID" : "203",
+		"TYPE_ID" : "07"
+	},
+	{
+		"REAL_METHOD_ID" : "203",
+		"TYPE_ID" : "08"
+	},
+	{
+		"REAL_METHOD_ID" : "204",
+		"TYPE_ID" : "06"
+	},
+	{
+		"REAL_METHOD_ID" : "204",
+		"TYPE_ID" : "08"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "01"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "02"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "03"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "04"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "05"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "06"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "07"
+	},
+	{
+		"REAL_METHOD_ID" : "999",
+		"TYPE_ID" : "08"
+	}
+]
+
+let subGroupCode = 'MS102'
+let numberRun = 1556
+for (let val of values) {
+    sql += `(${numberRun}, '${val["REAL_METHOD_ID"]}', '${val["TYPE_ID"]}', '${subGroupCode}'),\n`
+    numberRun++
+}
+
+console.log(sql)
+
+</script>

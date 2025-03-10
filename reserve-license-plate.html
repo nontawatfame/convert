@@ -1,11 +1,28 @@
 <script>
-    const url = "https://reserve.dlt.go.th/reserve/v2/?menu=resv_m&state=";
-    for (let i = 0; i < 10; i++) {
-        window.open(url, '_blank');
+    let arrrayWindow = [];
+    
+
+    closeAllWindow = () => {
+        for (let win of arrrayWindow) {
+            win.close();
+        }
+    }
+
+    openWin = () => {
+        const url = "https://reserve.dlt.go.th/reserve/v2";
+        for (let i = 0; i < 10; i++) {
+        const win = window.open(url, '_blank');
+        arrrayWindow.push(win);
+     }
     }
 </script>
 
 document.getElementById("r_brand").value = 'HONDA'
 document.getElementById("r_tel").value = "0623083745";
+document.getElementById("number").value = "5699";
 document.getElementById("r_bodynumber").value = "mrhgn3660st100744";
-document.getElementById("number").value = "9090";
+MRHGN3660ST100744
+mrhgn3660st100744
+
+<button type="button" onclick="openWin()">openwin</button>
+<button type="button" onclick="closeAllWindow()">closeAllWindow</button>

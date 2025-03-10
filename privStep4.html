@@ -52,20 +52,37 @@ VALUES `
 //     {privId: 178, privLevel: 2}
 // ] 
 
+// let valueS01s = [
+//     {privId: 206, privLevel: 2},
+//     {privId: 207, privLevel: 2},
+//     {privId: 208, privLevel: 2},
+//     {privId: 209, privLevel: 2},
+//     {privId: 210, privLevel: 2}
+// ] 
+
+// let valueO01s = [
+//     {privId: 206, privLevel: 2},
+//     {privId: 207, privLevel: 2},
+//     {privId: 208, privLevel: 2},
+//     {privId: 209, privLevel: 2},
+//     {privId: 210, privLevel: 2}
+// ] 
 let valueS01s = [
-    {privId: 206, privLevel: 2},
-    {privId: 207, privLevel: 2},
-    {privId: 208, privLevel: 2},
-    {privId: 209, privLevel: 2},
-    {privId: 210, privLevel: 2}
+    // {privId: 212, privLevel: 2},
+    // {privId: 213, privLevel: 2},
+    // {privId: 214, privLevel: 2},
+    // {privId: 215, privLevel: 2},
+    // {privId: 216, privLevel: 2},
+    {privId: 217, privLevel: 2}
 ] 
 
 let valueO01s = [
-    {privId: 206, privLevel: 2},
-    {privId: 207, privLevel: 2},
-    {privId: 208, privLevel: 2},
-    {privId: 209, privLevel: 2},
-    {privId: 210, privLevel: 2}
+    // {privId: 212, privLevel: 2},
+    // {privId: 213, privLevel: 2},
+    // {privId: 214, privLevel: 2},
+    // {privId: 215, privLevel: 2},
+    // {privId: 216, privLevel: 2},
+    {privId: 217, privLevel: 2}
 ] 
 
 
@@ -108,3 +125,17 @@ INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_
 	 (208,'M',3,167,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
 	 (209,'M',3,167,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
 	 (210,'M',3,167,'BTN_NEXT','ปุ่มเสนอหัวหน้าอนุมัติ','A',CURRENT_TIMESTAMP,'1',NULL,NULL);
+
+
+     INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_FLOW_ID,ACTION_NAME,REMARK,STATUS,CREATE_DATE,CREATE_BY,MODIFIED_DATE,MODIFIED_BY) VALUES
+	 (212,'M',5,165,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (213,'M',5,165,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+     (214,'M',5,166,'BTN_SAVE','ปุ่มบันทึก','A',CURRENT_TIMESTAMP,'1',NULL,NULL),
+	 (215,'M',5,166,'BTN_EDIT','ปุ่มแก้ไข','A',CURRENT_TIMESTAMP,'1',NULL,NULL)
+
+     INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_FLOW_ID,ACTION_NAME,REMARK,STATUS,CREATE_DATE,CREATE_BY,MODIFIED_DATE,MODIFIED_BY) VALUES
+	 (216,'M',5,165,'BTN_CANCEL_DATA','ปุ่มยกเลิกข้อมูล','A',CURRENT_TIMESTAMP,'1',NULL,NULL);
+     
+
+     INSERT INTO AMASTER.RDB_PRIV (RDB_PRIV_ID,FLOW_TYPE,DOC_SEQ,RDB_PROCURE_SUB_DOC_FLOW_ID,ACTION_NAME,REMARK,STATUS,CREATE_DATE,CREATE_BY,MODIFIED_DATE,MODIFIED_BY) VALUES
+	 (217,'M',3,167,'BTN_CANCEL','ปุ่มยกเลิกเลขที่วันที่','A',CURRENT_TIMESTAMP,'1',NULL,NULL);
